@@ -11,7 +11,8 @@ secret_picker <- function(people) {
   output    <- character(n_people)
 
   # start main loop to choose names
-  for (i in 1:n_people) {
+  i <- 1
+  while (i <= n_people) {
 
     # choose ith giver
     giver_i <- sample(x = givers, size = 1)
@@ -19,7 +20,7 @@ secret_picker <- function(people) {
     if (i == n_people && receivers == givers ) {
       # if loop's last turn and two vectors are the same (i.e. the giver is the
       # receiver), reset the values to restart loop from the beginning
-      i <- 1
+      i <- 0
       givers    <- people
       receivers <- people
 
@@ -41,6 +42,8 @@ secret_picker <- function(people) {
       givers <- givers[givers != giver_i]
       receivers <- receivers[receivers != receiver_i]
     }
+
+    i <- i + 1
   }
 
   print(output)
