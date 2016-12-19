@@ -5,7 +5,7 @@
 # -----------------------------------------------------------------------------
 
 
-secret_picker <- function(people, mails, nt, sender, passwd) {
+secret_picker <- function(people, mails, nt = NULL, sender, passwd) {
 
   library(mailR)
 
