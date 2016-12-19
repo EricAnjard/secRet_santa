@@ -2,6 +2,20 @@
 # file        : secret_picker.R
 # author      : Xavier Laviron
 # description : randomly choose pairs of people to organize a secret santa
+#
+# secRet_santa is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# secRet_santa is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Tux Mathador.  If not, see <http://www.gnu.org/licenses/>.
+#
 # -----------------------------------------------------------------------------
 
 
@@ -96,7 +110,7 @@ secret_picker <- function(people, mails, nt = NULL, sender, passwd) {
 
   for (i in output$giver) {
     recipient <- mails[output$giver == i]
-    msg <- 
+    msg <-
       paste("Salut", i, "!\n\n",
             "Après tirage au sort, les petits lutins du Père Noël ont décidé que tu devais offrir un cadeau à\n\n",
             output$receiver[output$giver == i], "\n\n",
