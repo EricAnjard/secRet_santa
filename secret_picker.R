@@ -1,10 +1,13 @@
 # -----------------------------------------------------------------------------
 # file        : secret_picker.R
+# author      : Xavier Laviron
 # description : randomly choose pairs of people to organize a secret santa
 # -----------------------------------------------------------------------------
 
 
-secret_picker <- function(people, nt) {
+secret_picker <- function(people, mails, nt, sender, passwd) {
+
+  library(mailR)
 
   # get number of participants
   n_people <- length(people)
@@ -91,5 +94,27 @@ secret_picker <- function(people, nt) {
                stringsAsFactors = FALSE)
   colnames(output) <- c("giver", "receiver")
 
-  return(output)
+  for (i in output$giver) {
+    recipient <- mails[output$giver == i]
+    msg <- 
+      paste("Salut", i, "!\n\n",
+            "Après tirage au sort, les petits lutins du Père Noël ont décidé que tu devais offrir un cadeau à\n\n",
+            output$receiver[output$giver == i], "\n\n",
+            "Trouve un joli cadeau!\n\n",
+            "Force et Honneur,\n",
+            "Le père Noël")
+    send.mail(from    = sender,
+              to      = recipient,
+              subject = "Secret Santa",
+              body    = msg,
+              smtp    = list(host.name  = "smtp.gmail.com",
+                             user.name  = sender,
+                             port       = 587,
+                             passwd     = passwd,
+                             ssl        = TRUE),
+              authenticate = TRUE,
+              send = TRUE)
+  }
+
+  print("All is as the Force wills it!")
 }
