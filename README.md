@@ -9,6 +9,8 @@ This function is designed to organize a random draw for a Secret Santa event.
 It allows to define people who should not be together and to send emails to
 people to let them know who they have.
 
+It requires the `mailR` library to send mails.
+
 
 Usage
 -----

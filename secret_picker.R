@@ -40,10 +40,10 @@ secret_picker <- function(people,
       # keep names and mails together to prevent mismatch due to further
       # shuffleing of people
       abook <- cbind.data.frame(people, mails, stringsAsFactors = FALSE)
+
+      library(mailR)
     }
   }
-
-  library(mailR)
 
   # get number of participants
   n_people <- length(people)
