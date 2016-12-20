@@ -31,9 +31,16 @@ secret_picker <- function(people,
     cat("The results will be shown on-screen. Press <Enter> to continue\n")
     line <- readline()
   } else {
-    # keep names and mails together to prevent mismatch due to further
-    # shuffleing of people
-    abook <- cbind.data.frame(people, mails, stringsAsFactors = FALSE)
+    if (length(people) != length(mails)) {
+      # check if there is as much addresses as participants. If not, stop the
+      # execution and print en error message
+      stop(paste("There is", length(people), "participants and",
+                 length(mails), "addresses. Please fix this."))
+    } else {
+      # keep names and mails together to prevent mismatch due to further
+      # shuffleing of people
+      abook <- cbind.data.frame(people, mails, stringsAsFactors = FALSE)
+    }
   }
 
   library(mailR)
