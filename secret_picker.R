@@ -30,6 +30,10 @@ secret_picker <- function(people,
     cat("WARNING! No mail addresses have been specified!\n")
     cat("The results will be shown on-screen. Press <Enter> to continue\n")
     line <- readline()
+  } else {
+    # keep names and mails together to prevent mismatch due to further
+    # shuffleing of people
+    abook <- cbind.data.frame(people, mails, stringsAsFactors = FALSE)
   }
 
   library(mailR)
@@ -123,7 +127,7 @@ secret_picker <- function(people,
     # if mails are sepcified, the receivers are send to givers
 
     for (i in output$giver) {
-      recipient <- mails[output$giver == i]
+      recipient <- abook[abook$people == i, "mails"]
       msg <-
         paste("Salut", i, "!\n\n",
               "Après tirage au sort, les petits lutins du Père Noël ont décidé que tu devais offrir un cadeau à\n\n",
@@ -154,5 +158,4 @@ secret_picker <- function(people,
     cat("Here are the results:\n")
     print(output)
   }
-
 }
