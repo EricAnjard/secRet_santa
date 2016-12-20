@@ -23,7 +23,7 @@ mails <- c("dark.vador@darkside.com",
            "anubis@goa_uld.com",
            "teal_c@chulak.com")
 
-# create a list of tuples of people that cannot be together (for example, dartk
+# create a list of tuples of people that cannot be together (for example, dark
 # vador and palpatine should be together, or they might destroy the galaxy...)
 not_together <- list(c("dark vador", "palpatine"),
                      c("teal'c", "anubis"))
@@ -35,9 +35,13 @@ source("secret_picker.R")
 sender <- "santa_claus@christmas.org"
 passwd <- "santa_claus_password"
 
-# get the result in output
+# get the results by email
 secret_picker(people  = people,
               nt      = not_together,
               mails   = mails,
               sender  = sender,
               passwd  = passwd)
+
+# get the results on-screen
+secret_picker(people  = people,
+              nt      = not_together)

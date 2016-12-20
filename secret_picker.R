@@ -19,7 +19,18 @@
 # -----------------------------------------------------------------------------
 
 
-secret_picker <- function(people, mails, nt = NULL, sender, passwd) {
+secret_picker <- function(people,
+                          mails = NULL,
+                          nt = NULL,
+                          sender = NULL,
+                          passwd = NULL)
+{
+
+  if (is.null(mails)) {
+    cat("WARNING! No mail addresses have been specified!\n")
+    cat("The results will be shown on-screen. Press <Enter> to continue\n")
+    line <- readline()
+  }
 
   library(mailR)
 
@@ -108,27 +119,40 @@ secret_picker <- function(people, mails, nt = NULL, sender, passwd) {
                stringsAsFactors = FALSE)
   colnames(output) <- c("giver", "receiver")
 
-  for (i in output$giver) {
-    recipient <- mails[output$giver == i]
-    msg <-
-      paste("Salut", i, "!\n\n",
-            "Après tirage au sort, les petits lutins du Père Noël ont décidé que tu devais offrir un cadeau à\n\n",
-            output$receiver[output$giver == i], "\n\n",
-            "Trouve un joli cadeau!\n\n",
-            "Force et Honneur,\n",
-            "Le père Noël")
-    send.mail(from    = sender,
-              to      = recipient,
-              subject = "Secret Santa",
-              body    = msg,
-              smtp    = list(host.name  = "smtp.gmail.com",
-                             user.name  = sender,
-                             port       = 587,
-                             passwd     = passwd,
-                             ssl        = TRUE),
-              authenticate = TRUE,
-              send = TRUE)
+  if (!is.null(mails)) {
+    # if mails are sepcified, the receivers are send to givers
+
+    for (i in output$giver) {
+      recipient <- mails[output$giver == i]
+      msg <-
+        paste("Salut", i, "!\n\n",
+              "Après tirage au sort, les petits lutins du Père Noël ont décidé que tu devais offrir un cadeau à\n\n",
+              output$receiver[output$giver == i], "\n\n",
+              "Trouve un joli cadeau!\n\n",
+              "Force et Honneur,\n",
+              "Le père Noël")
+
+      send.mail(from    = sender,
+                to      = recipient,
+                subject = "Secret Santa",
+                body    = msg,
+                smtp    = list(host.name  = "smtp.gmail.com",
+                               user.name  = sender,
+                               port       = 587,
+                               passwd     = passwd,
+                               ssl        = TRUE),
+                authenticate = TRUE,
+                send = TRUE)
+    }
+
+    print("All is as the Force wills it!\n")
+    print("The results have been sent via email\n")
+
+  } else {
+    # the output is printed on the screen
+    cat("All is as the Force wills it!\n")
+    cat("Here are the results:\n")
+    print(output)
   }
 
-  print("All is as the Force wills it!")
 }
