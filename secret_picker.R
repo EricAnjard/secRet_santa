@@ -136,12 +136,12 @@ secret_picker <- function(people,
     for (i in output$giver) {
       recipient <- abook[abook$people == i, "mails"]
       msg <-
-        paste("Salut", i, "!\n\n",
-              "Après tirage au sort, les petits lutins du Père Noël ont décidé que tu devais offrir un cadeau à\n\n",
+        paste("Hi", i, "!\n\n",
+              "Santa and his elves has chosen for you! You have to find a gift for:\n\n",
               output$receiver[output$giver == i], "\n\n",
-              "Trouve un joli cadeau!\n\n",
-              "Force et Honneur,\n",
-              "Le père Noël")
+              "Find an awesome gift!\n",
+              "Merry Christmas,\n",
+              "Santa")
 
       send.mail(from    = sender,
                 to      = recipient,
