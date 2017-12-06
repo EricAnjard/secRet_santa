@@ -23,7 +23,7 @@ mails <- c("dark.vador@darkside.com",
            "anubis@goa_uld.com",
            "teal_c@chulak.com")
 
-# create a list of tuples of people that cannot be together (for example, dark
+# create a list of couples of people that cannot be together (for example, dark
 # vador and palpatine should not be together, or they might destroy the
 # galaxy...)
 not_together <- list(c("dark vador", "palpatine"),
